@@ -39,7 +39,7 @@
                     <p class="blog-post-meta">{{$v->created_at->toFormattedDateString()}} by <a href="/user/5">{{$v->user->name}}</a></p>
 
                     <p>{!! str_limit($v->content, 100, '......') !!}
-                    <p class="blog-post-meta">赞 {{$v->likescount_count}}  | 评论 {{$v->comments_count}}</p>
+                    <p class="blog-post-meta">赞 {{$v->likes_count}}  | 评论 {{$v->comments_count}}</p>
                 </div>
                 @endforeach
 

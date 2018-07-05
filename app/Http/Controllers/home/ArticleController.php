@@ -14,7 +14,7 @@ class ArticleController extends Controller
     //文章列表页
     public function index()
     {
-        $data = Article::orderBy('created_at', 'desc')->withCount(["comments", "likescount"])->paginate(5);
+        $data = Article::orderBy('created_at', 'desc')->withCount(["comments", "likes"])->paginate(5);
         return view('home.list', compact('data'));
     }
 

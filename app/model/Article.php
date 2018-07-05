@@ -25,7 +25,7 @@ class Article extends Model
     }
 
     //一对一  文章有多个点赞
-    public function likescount()
+    public function likes()
     {
         return $this->hasMany('App\model\Like');
     }
