@@ -21,6 +21,8 @@ Route::group(['prefix' => 'article'], function () {
     Route::post('/doedit', "home\ArticleController@doEdit");  //编辑操作
     Route::get('/delete/{id}', "home\ArticleController@delete");  //编辑操作
     Route::post('/docomment', "home\ArticleController@comment");  //评论添加
+    Route::get('/dolike/{id}', "home\ArticleController@like");  //点赞
+    Route::get('/dounlike/{id}', "home\ArticleController@unlike");  //取消点赞
 });
 
 //用户

@@ -17,4 +17,16 @@ class Article extends Model
     {
         return $this->hasMany('App\model\Comment')->orderBy('created_at', 'desc');
     }
+
+    //一对一  文章和点赞
+    public function like($user_id)
+    {
+        return $this->hasOne('App\model\Like')->where('user_id', $user_id);
+    }
+
+    //一对一  文章有多个点赞
+    public function likescount()
+    {
+        return $this->hasMany('App\model\Like');
+    }
 }

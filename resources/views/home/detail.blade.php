@@ -21,7 +21,11 @@
 
         <p><p>{!! $article->content !!}</p><p><br></p></p>
         <div>
-            <a href="/posts/62/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+            @if($like)
+                <a href="/article/dounlike/{{$article->id}}" type="button" class="btn btn-default btn-lg">取消赞</a>
+            @else
+                <a href="/article/dolike/{{$article->id}}" type="button" class="btn btn-primary btn-lg">赞</a>
+            @endif
         @include("layout._error")
         </div>
     </div>

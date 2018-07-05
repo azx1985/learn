@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\home;
 
 use App\model\Comment;
+use App\model\Like;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\model\Article;
@@ -13,7 +14,7 @@ class ArticleController extends Controller
     //文章列表页
     public function index()
     {
-        $data = Article::orderBy('created_at', 'desc')->withCount("comments")->paginate(5);
+        $data = Article::orderBy('created_at', 'desc')->withCount(["comments", "likescount"])->paginate(5);
         return view('home.list', compact('data'));
     }
 
@@ -22,7 +23,10 @@ class ArticleController extends Controller
     {
         //预加载article模型里面的comments方法
         $article->load('comments');
-        return view('home.detail', compact('article'));
+
+        $like = $article->like(Auth::id())->first();
+
+        return view('home.detail', compact('article', 'like'));
     }
 
     //文章创建页
@@ -116,6 +120,24 @@ class ArticleController extends Controller
           } else {
               return back()->withInput()->withErrors('评论失败！');
           }
+        }
+    }
+
+    //点赞
+    public function like($id)
+    {
+      $res = Like::firstOrCreate(['article_id' => $id, 'user_id' => Auth::id()]);
+      if ($res) {
+          return back();
+      }
+    }
+
+    //不点赞
+    public function unlike($id)
+    {
+        $res = Like::where(['article_id' => $id, 'user_id' => Auth::id()])->delete();
+        if ($res) {
+            return back();
         }
     }
 }
